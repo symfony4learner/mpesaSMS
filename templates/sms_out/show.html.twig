@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SMSOut{% endblock %}
+
+{% block body %}
+    <h1>SMSOut</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ sms_out.id }}</td>
+            </tr>
+            <tr>
+                <th>Send_to</th>
+                <td>{{ sms_out.sendTo }}</td>
+            </tr>
+            <tr>
+                <th>Message</th>
+                <td>{{ sms_out.message }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('sms_out_index') }}">back to list</a>
+
+    <a href="{{ path('sms_out_edit', {'id': sms_out.id}) }}">edit</a>
+
+    {{ include('sms_out/_delete_form.html.twig') }}
+{% endblock %}
