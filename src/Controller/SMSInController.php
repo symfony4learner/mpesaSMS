@@ -73,6 +73,38 @@ class SMSInController extends Controller
 
         return $this->render('sms_in/index.html.twig', ['message' => $message]);
 	}
+    /**
+     * @Route("/sms/messages", name="list_messages")
+     */
+    public function listAction(Request $request, SendMessage $sendMessage)
+    {
+        $data = [];
+        $messages = $this->em()->getRepository('App:SMSIn')
+            ->findAll();
+        $data['messages'] = $messages;
+        return $this->render('sms_in/messages.html.twig', $data);
+    }
+
+    /**
+     * @Route("/sms/clear", name="clear_messages")
+     */
+    public function clearAction(Request $request, SendMessage $sendMessage)
+    {
+        // this is destructive! it will clear the database and the log file.
+        $messages = $this->em()->getRepository('App:SMSIn')
+            ->findAll();
+        foreach($messages as $message){
+            $this->em()->remove($message);
+            $this->em()->flush();
+        }
+        $date = date('Y-m-d');
+        $path_to_log = $this->container->get('kernel')->getLogDir();
+        $mpesa_log = "sms-".$date.".log";
+
+        file_put_contents($path_to_log."/".$mpesa_log, "");
+        return $this->render('sms_in/delete.html.twig');
+    }
+
 	
     private function save($entity){
         $this->em()->persist($entity);

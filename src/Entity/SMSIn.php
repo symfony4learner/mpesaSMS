@@ -61,10 +61,6 @@ class SMSIn
      */
     private $status;
 
-    private $service_fee;
-    private $expected_sms_origin;
-    private $example_message;
-
     public function getId()
     {
         return $this->id;

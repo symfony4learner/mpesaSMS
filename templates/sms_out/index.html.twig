@@ -1,17 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}SMSOut index{% endblock %}
+{% block title %}Send SMS{% endblock %}
 
 {% block body %}
-    <h1>SMSOut index</h1>
+    <h1>Send SMS</h1>
 
-    <table class="table">
+    <table border="1" class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Send_to</th>
-                <th>Message</th>
-                <th>actions</th>
+                <th>Send to</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -19,7 +18,6 @@
             <tr>
                 <td>{{ sms_out.id }}</td>
                 <td>{{ sms_out.sendTo }}</td>
-                <td>{{ sms_out.message }}</td>
                 <td>
                     <a href="{{ path('sms_out_show', {'id': sms_out.id}) }}">show</a>
                     <a href="{{ path('sms_out_edit', {'id': sms_out.id}) }}">edit</a>
@@ -33,7 +31,8 @@
         </tbody>
     </table>
 
-    <a href="{{ path('sms_out_new') }}">Create new</a><br />
-    <a href="{{ path('receive_sms', {'sms_origin': '0736600033', 'message': "BS49OR20Z Confirmed.You have received Ksh100.00 from MICHAEL SOMEONE 254705285959 on 15/10/11 at 11:52 AM New M-PESA balance is Ksh100.00"}) }}">Receive a mock message</a>
-    <a href="{{ path('generate_codes', {'qty': 2000} ) }}">Generate 2000 codes</a>
+    <a href="{{ path('sms_out_new') }}">Send new message</a><br />
+    <a href="{{ path('list_messages') }}">Mpesa received messages</a><br />
+    <a href="{{ path('receive_sms', {'sms_origin': '0736600033', 'message': "BS49OR20Z Confirmed.You have received Ksh20.00 from MICHAEL SOMEONE 254705285959 on 15/10/11 at 11:52 AM New M-PESA balance is Ksh100.00"}) }}">Receive a mock message</a><br />
+    {# <a href="{{ path('generate_codes', {'qty': 2000} ) }}">Generate 2000 codes</a> #}
 {% endblock %}

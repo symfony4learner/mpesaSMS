@@ -1,0 +1,28 @@
+<h2>Received Messages</h2>
+<table border="1">
+<tr>
+	<td>Code</td>
+	<td>Client Name</td>
+	<td>Client Phone</td>
+	<td>Amount</td>
+	<td>Balance</td>
+	<td>Date</td>
+	<td>SMS Origin</td>
+	<td>Whole Message</td>
+	<td>Status</td>
+</tr>
+{% for message in messages %}
+	<tr>
+		<td>{{message.confirmationCode}}</td>
+		<td>{{message.clientName}}</td>
+		<td>{{message.phoneNumber}}</td>
+		<td>{{message.amountReceived}}</td>
+		<td>{{message.balance}}</td>
+		<td>{{message.receivedOn|date("d/m/Y h:i:s")}}</td>
+		<td>{{message.smsOrigin}}</td>
+		<td>{{message.wholeSms}}</td>
+		<td>{{message.status}}</td>
+
+	</tr>
+{% endfor %}
+</table>
