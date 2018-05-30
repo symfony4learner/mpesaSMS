@@ -13,7 +13,7 @@ use App\Service\SendMessage;
 class SMSInController extends Controller
 {
     private $service_fee = '50'; // what you are charging for service
-    public $expected_sms_origin = '0736600033'; // you need the message to come from MPESA, not some con-men's number.
+    public $expected_sms_origin = 'MPESA'; // you need the message to come from MPESA, not some con-men's number.
     private $example_message = 'BS49OR20Z Confirmed.You have received Ksh55.00 from MICHAEL SOMEONE 254705285959 on 15/10/11 at 11:52 AM New M-PESA balance is Ksh100.00';
 
     /**
@@ -45,7 +45,7 @@ class SMSInController extends Controller
             $smsIn->setAmountReceived($parts['amount_received']);
             $smsIn->setReceivedOn($now);
             $smsIn->setSmsOrigin($sms_origin);
-            $smsIn->setWholeSms("xyz");
+            $smsIn->setWholeSms($message);
 
             // get the number with 254 prefix
             $full_phone_number = "+".$parts['sender'];

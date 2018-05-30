@@ -6,17 +6,18 @@ use Psr\Log\LoggerInterface;
 
 class SendMessage
 {
-	private $logger;
+        
+        private $logger;
 
-	public function __construct(LoggerInterface $logger)
-	{
-		$this->logger = $logger;
-	}
+        public function __construct(LoggerInterface $logger)
+        {
+        	$this->logger = $logger;
+        }
 
-	public function sendMessage($phone_no, $message)
-	{
-		$clean_message = str_replace(" ", "+", $message);
-		
+        public function sendMessage($phone_no, $message)
+        {
+        	$clean_message = str_replace(" ", "+", $message);
+        	
         try {
             $ch = curl_init();
 
@@ -48,8 +49,9 @@ class SendMessage
                 E_USER_ERROR);
 
         }
-		$this->logger->info('sent a message to '.$phone_no.': '.$message);
-        return $message;
-		// return $content;
-	}
+        $this->logger->info('sent a message to '.$phone_no.': '.$message);
+        // return $message;
+        return $content;
+
+        }
 }

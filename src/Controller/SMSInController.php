@@ -78,6 +78,7 @@ class SMSInController extends Controller
      */
     public function listAction(Request $request, SendMessage $sendMessage)
     {
+        // display all entries from the mpesa table.
         $data = [];
         $messages = $this->em()->getRepository('App:SMSIn')
             ->findAll();
