@@ -33,7 +33,7 @@
 
     <a href="{{ path('sms_out_new') }}">Send new message</a><br />
     <a href="{{ path('list_messages') }}">Mpesa received messages</a><br />
-    <a href="{{ path('receive_sms', {'sms_origin': '0736600033', 'message': "BS49OR20Z Confirmed.You have received Ksh20.00 from MICHAEL SOMEONE 254705285959 on 15/10/11 at 11:52 AM New M-PESA balance is Ksh100.00"}) }}">Receive a mock message</a><br />
+    <a href="{{ path('receive_sms', {'phone_no': '0736600033', 'message': "BS49OR20Z Confirmed.You have received Ksh120.00 from MICHAEL SOMEONE 254705285959 on 15/10/11 at 11:52 AM New M-PESA balance is Ksh100.00"}) }}">Receive a mock message</a><br />
     <a href="{{ path('clear_messages') }}">Clear all messages from mpesa table</a><br />
     {# <a href="{{ path('generate_codes', {'qty': 2000} ) }}">Generate 2000 codes</a> #}
 {% endblock %}

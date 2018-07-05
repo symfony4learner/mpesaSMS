@@ -12,8 +12,8 @@ use App\Service\SendMessage;
 
 class SMSInController extends Controller
 {
-    private $service_fee = '50'; // what you are charging for service
-    public $expected_sms_origin = '0736600033'; // you need the message to come from MPESA, not some con-men's number.
+    private $service_fee = '100'; // what you are charging for service
+    public $expected_sms_origin = 'MPESA'; //'+254736600033'; // you need the message to come from MPESA, not some con-men's number.
     private $example_message = 'BS49OR20Z Confirmed.You have received Ksh55.00 from MICHAEL SOMEONE 254705285959 on 15/10/11 at 11:52 AM New M-PESA balance is Ksh100.00';
 
     /**
@@ -23,7 +23,7 @@ class SMSInController extends Controller
     {
     	//access the get parameters, %p for sms_origin and %a for message
     	$message = $request->query->get('message');
-    	$sms_origin = $request->query->get('sms_origin');
+    	$sms_origin = $request->query->get('phone_no');
 
         // check whether message is from mpesa, if not, reply from here
         if($sms_origin != $this->expected_sms_origin){
@@ -45,7 +45,7 @@ class SMSInController extends Controller
             $smsIn->setAmountReceived($parts['amount_received']);
             $smsIn->setReceivedOn($now);
             $smsIn->setSmsOrigin($sms_origin);
-            $smsIn->setWholeSms("xyz");
+            $smsIn->setWholeSms($message);
 
             // get the number with 254 prefix
             $full_phone_number = "+".$parts['sender'];
@@ -135,7 +135,7 @@ class SMSInController extends Controller
 
         if($balance < 0){
             // cash is not enough
-            $reply = "We have received ".$amount_received." Kenya shillings from ".$full_name." Send Ksh ".abs($balance)." to complete your payment then we'll send you the code";
+            $reply = "Hi ".$full_name. "! We have received your ".$amount_received . ". Send Ksh " .abs($balance)." to complete your payment then we'll send you the code";
             $status = "to_add";
             $balance_left = $amount_received + $bal_cf;
         } elseif ($balance >= 0) {
@@ -167,7 +167,7 @@ class SMSInController extends Controller
             $data['rand_str'] = $string_of_codes;
             
             // formulate reply with tokens and balance
-            $reply = "We have received ".$amount_received." Kenya shillings from ".$full_name." You have purchased ".$tokens." token(s):" . $string_of_codes . ". We owe you Ksh ". $balance_left;    
+            $reply = "Hello ".$full_name."! We have received your payment: ".$amount_received." Kenya shillings. You have purchased ".$tokens." code(s): " . $string_of_codes . ". We owe you Ksh ". $balance_left;    
         }
         return [$tokens, $reply, $balance_left, $status];
     }
